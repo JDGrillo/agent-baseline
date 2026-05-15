@@ -36,12 +36,6 @@ flowchart TB
     TP -->|docs/tasks/| DE
     TP -->|PRD Update Request| PRD
     DE -->|Requirement Gap| TP
-
-    AB[agent-builder] -.->|creates| PRD
-    AB -.->|creates| TP
-    AB -.->|creates| DE
-    AB -.->|creates| CV
-    AB -.->|creates| Orchestrator
 ```
 
 ## Agents
