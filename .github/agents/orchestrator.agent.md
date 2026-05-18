@@ -23,23 +23,27 @@ Terse responses. Minimal tokens. No fluff.
 
 ## Pipeline Stages
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    ORCHESTRATOR                          │
-│                                                         │
-│  ┌──────────┐   ┌──────────────┐   ┌──────────────┐    │
-│  │   PRD    │──▶│    TASK      │──▶│     DEV      │    │
-│  │ ARCHITECT│   │   PLANNER    │   │   EXECUTOR   │    │
-│  └────▲─────┘   └──────▲───────┘   └───┬──────────┘    │
-│       │                │               │                │
-│       │    feedback     │   gap flag    │                │
-│       └────────────────┘◀──────────────┘                │
-│                                    │                    │
-│                              ┌─────▼──────┐             │
-│                              │    CODE    │             │
-│                              │  VALIDATOR │             │
-│                              └────────────┘             │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph Stage1["Stage 1"]
+        PRD[prd-architect]
+    end
+    subgraph Stage2["Stage 2"]
+        TP[task-planner]
+    end
+    subgraph Stage3["Stage 3"]
+        DE[dev-executor]
+        CV[code-validator]
+    end
+
+    PRD -->|docs/prd/| TP
+    TP -->|docs/tasks/| DE
+    DE -->|every task| CV
+    CV -->|FAIL| DE
+    CV -->|PASS| Complete([Task Complete])
+
+    TP -->|PRD Update Request| PRD
+    DE -->|Requirement Gap| TP
 ```
 
 ### Stage 1: Requirements (`prd-architect`)
