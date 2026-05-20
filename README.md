@@ -6,7 +6,7 @@ A GitHub Copilot agent workflow for end-to-end product development — from requ
 
 ```mermaid
 flowchart TB
-    User([User]) --> Orchestrator
+    User([User]) --> Router
 
     subgraph Orchestrator["orchestrator"]
         direction TB
@@ -28,9 +28,9 @@ flowchart TB
         CV -->|FAIL| DE
     end
 
-    Orchestrator --> PRD
-    Orchestrator --> TP
-    Orchestrator --> DE
+    Router --> PRD
+    Router --> TP
+    Router --> DE
 
     PRD -->|docs/prd/| TP
     TP -->|docs/tasks/| DE
